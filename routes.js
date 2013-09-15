@@ -5,12 +5,12 @@ exports.index = function (req, res) {
   NConf.load ();
 
   var twitClient = new Twit({
-        consumer_key:         NConf.get("twitter-consumer-key"),
-        consumer_secret:      NConf.get("twitter-consumer-secret"),
-        access_token:         NConf.get("twitter-access-token"),
-        access_token_secret:  NConf.get("twitter-access-token-secret")
+        consumer_key:         process.env.TWITTER_CONSUMER_KEY || NConf.get("twitter-consumer-key"),
+        consumer_secret:      process.env.TWITTER_CONSUMER_SECRET || NConf.get("twitter-consumer-secret"),
+        access_token:         process.env.INSTAGRAM_ACCESS_TOKEN || NConf.get("twitter-access-token"),
+        access_token_secret:  process.env.INSTAGRAM_ACCESS_TOKEN_SECRET || NConf.get("twitter-access-token-secret")
       }),
-      twitterHandle = NConf.get("twitter-handle"); 
+      twitterHandle = process.env.TWITTER_HANDLE || NConf.get("twitter-handle"); 
 
   NConf.use ('file', {file: 'config.json' });
   NConf.load ();
@@ -64,10 +64,10 @@ exports.send = function (req, res) {
     NConf.load ();
 
     var twitClient = new Twit({
-          consumer_key:         NConf.get("twitter-consumer-key"),
-          consumer_secret:      NConf.get("twitter-consumer-secret"),
-          access_token:         NConf.get("twitter-access-token"),
-          access_token_secret:  NConf.get("twitter-access-token-secret")
+          consumer_key:         process.env.TWITTER_CONSUMER_KEY || NConf.get("twitter-consumer-key"),
+          consumer_secret:      process.env.TWITTER_CONSUMER_SECRET || NConf.get("twitter-consumer-secret"),
+          access_token:         process.env.INSTAGRAM_ACCESS_TOKEN || NConf.get("twitter-access-token"),
+          access_token_secret:  process.env.INSTAGRAM_ACCESS_TOKEN_SECRET || NConf.get("twitter-access-token-secret")
         }); 
 
     NConf.use ('file', {file: 'config.json' });
