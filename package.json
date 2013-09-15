@@ -1,0 +1,16 @@
+{
+  "name": "TweetMorse",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "latest",
+    "jade": "latest",
+    "jquery": "latest",
+    "nconf": "latest",
+    "duino": "latest",
+    "twit": "latest"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}

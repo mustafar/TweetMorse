@@ -1,0 +1,76 @@
+!!!5
+html
+  head
+    title #{title}
+
+    //-  base stylesheet
+    link(rel='stylesheet', href='/style.css')
+
+    //- jquery
+    script(src='/jquery-1.9.1.min.js')
+    //- script(src='/jquery.tmpl.min.js)
+
+    //- templates
+    script#tweet(type='text/x-jquery-tmpl')
+      .tweet
+        .tweet-text ${text}
+        .tweet-info
+          .tweet-links
+            .tweet-date ${time}
+            .tweet-page-link
+              a(href="${link}", target="_blank")
+                img(src = "https://dl.dropboxusercontent.com/s/958qztzaplseut2/twitter-16x16.png")
+          .tweet-text-decoded ${textDecoded}
+        .div-break
+
+  body
+    #wrap
+      header
+        h1
+          div.page-logo
+            a(href="/")
+              img.logo-img(src='https://dl.dropboxusercontent.com/s/l226jf8j71v6h3l/tweetmorse_logo.png')
+          div.page-title
+            a(href="/", style="padding: 0 15px 0 5px") #{title}
+          div.div-break
+      .container
+        #tweets
+    footer
+      div.social-container
+        a(href="http://twitter.com/mustafarizvi", target="_blank")
+          div.social-logo.twitter-logo
+        a(href="http://instagram.com/mustafarizvi", target="_blank")
+          div.social-logo.instagram-logo
+      div.div-break
+
+  script.
+    $(document).ready(function () {
+      var dayName = { 0: 'Sun',
+        1: 'Mon', 2: 'Tue', 3: 'Wed',
+        4: 'Thu', 5: 'Fri', 6: 'Sat' };
+      var tweets = !{JSON.stringify (tweets)};
+      for (var i=0; i<tweets.length; i++) {
+        var tweet = tweets[i],
+            tweetDate = new Date(tweet.time),
+            tweetDateStr = dayName[tweetDate.getDay()]
+                         + ", "
+                         + (tweetDate.getMonth() + 1)
+                         + "/"
+                         + tweetDate.getDate()
+                         + "  "
+                         + (tweetDate.getHours() % 12)
+                         + ":"
+                         + tweetDate.getMinutes()
+                         + (tweetDate.getHours()>12? 'pm': 'am');
+        
+        var templateStr = $("#tweet").html();
+        // hackity-hack
+        templateStr = templateStr
+          .replace("${text}", tweet.text)
+          .replace("${textDecoded}", '"' + tweet.textDecoded + '"')
+          .replace("${link}", tweet.link)
+          .replace("${time}", tweetDateStr);
+        $("#tweets").append(templateStr);
+      }
+    });
+

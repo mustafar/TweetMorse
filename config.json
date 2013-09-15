@@ -1,0 +1,9 @@
+{
+  "led-pin": 13,
+  "button-pin": 2,
+  "button-push-to-make": false,
+  "debug-mode": false,
+  "dot-dash-time-threshold": 500,
+  "twitter-hashtag": "TweetMorse",
+  "decoding-error-placeholder": "[derp]"
+}
