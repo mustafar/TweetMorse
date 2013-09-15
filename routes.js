@@ -1,16 +1,15 @@
 exports.index = function (req, res) {
   var NConf = require('nconf'),
       Twit = require('twit');
-  NConf.use ('file', {file: 'secrets.json' });
-  NConf.load ();
 
+console.log(process.env.TWITTER_CONSUMER_KEY);
   var twitClient = new Twit({
-        consumer_key:         process.env.TWITTER_CONSUMER_KEY || NConf.get("twitter-consumer-key"),
-        consumer_secret:      process.env.TWITTER_CONSUMER_SECRET || NConf.get("twitter-consumer-secret"),
-        access_token:         process.env.INSTAGRAM_ACCESS_TOKEN || NConf.get("twitter-access-token"),
-        access_token_secret:  process.env.INSTAGRAM_ACCESS_TOKEN_SECRET || NConf.get("twitter-access-token-secret")
+        consumer_key:         process.env.TWITTER_CONSUMER_KEY,
+        consumer_secret:      process.env.TWITTER_CONSUMER_SECRET,
+        access_token:         process.env.TWITTER_ACCESS_TOKEN,
+        access_token_secret:  process.env.TWITTER_ACCESS_TOKEN_SECRET
       }),
-      twitterHandle = process.env.TWITTER_HANDLE || NConf.get("twitter-handle"); 
+      twitterHandle = process.env.TWITTER_HANDLE; 
 
   NConf.use ('file', {file: 'config.json' });
   NConf.load ();
@@ -60,14 +59,12 @@ exports.send = function (req, res) {
 
     var NConf = require('nconf'),
         Twit = require('twit');
-    NConf.use ('file', {file: 'secrets.json' });
-    NConf.load ();
 
     var twitClient = new Twit({
-          consumer_key:         process.env.TWITTER_CONSUMER_KEY || NConf.get("twitter-consumer-key"),
-          consumer_secret:      process.env.TWITTER_CONSUMER_SECRET || NConf.get("twitter-consumer-secret"),
-          access_token:         process.env.INSTAGRAM_ACCESS_TOKEN || NConf.get("twitter-access-token"),
-          access_token_secret:  process.env.INSTAGRAM_ACCESS_TOKEN_SECRET || NConf.get("twitter-access-token-secret")
+          consumer_key:         process.env.TWITTER_CONSUMER_KEY,
+          consumer_secret:      process.env.TWITTER_CONSUMER_SECRET,
+          access_token:         process.env.INSTAGRAM_ACCESS_TOKEN,
+          access_token_secret:  process.env.INSTAGRAM_ACCESS_TOKEN_SECRET
         }); 
 
     NConf.use ('file', {file: 'config.json' });
