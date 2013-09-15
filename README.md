@@ -23,7 +23,7 @@ This has all the application constants.
 }
 ```
 ### .env
-This includes all env key=value pairs. Please set these correctle before running the app.
+This includes all env key=value pairs. Please create a .env file and set these values correctly before running the app.
 ```text
 TWITTER_HANDLE=<your_twitter_handle>
 TWITTER_CONSUMER_KEY=<twitter_app_consumer_key>
@@ -31,4 +31,6 @@ TWITTER_CONSUMER_SECRET=<twitter_app_consumer_secret>
 TWITTER_ACCESS_TOKEN=<twitter_app_access_token>
 TWITTER_ACCESS_TOKEN_SECRET=<twitter_app_access_token_secrey>
 ```
+## See in action
+[tweetmorse.mustafarizvi.com](http://tweetmorse.mustafarizvi.com)
 
