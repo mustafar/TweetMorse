@@ -81,10 +81,10 @@ h1 a {
   cursor: pointer;
 }
 .twitter-logo {
-  background: url("https://dl.dropbox.com/s/retljdvsxe2m50u/social_icons.png") 270px 0;
+  background: url("/social_icons.png") 270px 0;
 }
 .instagram-logo {
-  background: url("https://dl.dropbox.com/s/retljdvsxe2m50u/social_icons.png") 132px 0;
+  background: url("/social_icons.png") 132px 0;
 }
 
 footer .social-container {
@@ -158,6 +158,7 @@ footer .mstfrzv-txt {
   margin: 0 auto 50px;
 }
 .tweet {
+  display: none;
   width: 100%;
   margin: 0 0 20px;
 }
@@ -196,4 +197,13 @@ footer .mstfrzv-txt {
 }
 .tweet-page-link {
   float: left;
+}
+#spinner-container {
+  width: 100%;
+  margin-bottom: 50px;
+}
+.spinner {
+  background: url("/spinner.gif") no-repeat center;
+  height: 38px;
+  display: none;
 }
