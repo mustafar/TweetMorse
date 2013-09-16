@@ -12,14 +12,14 @@ html
 
     //- templates
     script#tweet(type='text/x-jquery-tmpl')
-      .tweet
+      div(id="tweet-${id}", class="tweet")
         .tweet-text ${text}
         .tweet-info
           .tweet-links
             .tweet-date ${time}
             .tweet-page-link
               a(href="${link}", target="_blank")
-                img(src = "https://dl.dropboxusercontent.com/s/958qztzaplseut2/twitter-16x16.png")
+                img(src = "/twitter-16x16.png")
           .tweet-text-decoded ${textDecoded}
         .div-break
 
@@ -35,6 +35,8 @@ html
           div.div-break
       .container
         #tweets
+        #spinner-container
+          .spinner
     footer
       div.social-container
         a(href="http://twitter.com/mustafarizvi", target="_blank")
@@ -44,13 +46,28 @@ html
       div.div-break
 
   script.
-    $(document).ready(function () {
-      var dayName = { 0: 'Sun',
+    // globals - im sorry :(
+    var isScrolling = false,
+      scrollLength = 5,
+      dayName = { 0: 'Sun',
         1: 'Mon', 2: 'Tue', 3: 'Wed',
         4: 'Thu', 5: 'Fri', 6: 'Sat' };
-      var tweets = !{JSON.stringify (tweets)};
-      for (var i=0; i<tweets.length; i++) {
-        var tweet = tweets[i],
+
+    function scrollMore(tweetQueue) {
+      if (tweetQueue && tweetQueue.length > 0) {
+        if ($("#spinner-container").children().first().is(":visible")) {
+          for (var i=0; i<tweets.length; i++) {
+            tweetQueue.push(tweets[i]);
+          }
+          tweets = tweetQueue;
+          return;
+        } 
+        $("#spinner-container .spinner").slideDown('slow');
+      } else {
+        return;
+      }
+      for (var i=0; i<tweetQueue.length; i++) {
+        var tweet = tweetQueue[i],
             tweetDate = new Date(tweet.time),
             tweetDateStr = dayName[tweetDate.getDay()]
                          + ", "
@@ -66,11 +83,52 @@ html
         var templateStr = $("#tweet").html();
         // hackity-hack
         templateStr = templateStr
+          .replace("${id}", tweet.id)
           .replace("${text}", tweet.text)
           .replace("${textDecoded}", '"' + tweet.textDecoded + '"')
           .replace("${link}", tweet.link)
           .replace("${time}", tweetDateStr);
         $("#tweets").append(templateStr);
+        $("#tweet-" + tweet.id).fadeIn("slow");
+      }
+
+      // re-enable inifinity scrolling
+      $("#spinner-container .spinner").slideUp('slow');
+      setTimeout(function() {
+        isScrolling = false;
+      }, 1800)
+    };
+
+    function selectTweetQueue() {
+      var length = Math.min(tweets.length, scrollLength);
+      var queue = tweets.splice(0, length);
+      return queue;
+    };
+
+    $(document).ready(function () {
+      tweets = !{JSON.stringify (tweets)};
+
+      // calculate the no. of tweets to fit
+      var tweetContainerHeight = $("#wrap").height() 
+                               - $("header").height()  
+                               - $("footer").height()
+                               - 200;
+      scrollLength = Math.ceil(tweetContainerHeight/160);
+
+      tweetQueue = selectTweetQueue();
+      scrollMore(tweetQueue);
+    });
+
+    // infinite scroller
+    $(window).scroll(function () { 
+      if ($(window).scrollTop() >= $(window).height() - $(window).height() - 10) {
+        //Add something at the end of the page
+        if (isScrolling == false) {
+          // disable inifinity scrolling
+          isScrolling = true;
+          tweetQueue = selectTweetQueue();
+          scrollMore(tweetQueue);
+        }
       }
     });
 
