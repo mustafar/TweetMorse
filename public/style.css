@@ -90,6 +90,14 @@ h1 a {
 footer .social-container {
   float: right;
 }
+footer .mustafa-container {
+  float: left;
+  margin-top: 30px;
+}
+footer .mustafa-container img {
+  border-radius: 16px;
+  margin-left: 10px;
+}
 
 footer .mstfrzv-txt {
   float: left;
